@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Signin Demo</title>
+
+    <meta name="google-signin-client_id" content="865864447765-32e7hqmp003r87n0jqtati6c6m2q3u7t.apps.googleusercontent.com">
+</head>
+
+<body>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+    <a href="#" onclick="signOut();">Sign out</a>
+
+    <script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function() {
+                console.log('User signed out.');
+            });
+        }
+    </script>
+
+
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log('Token ', id_token);
+        }
+    </script>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!--
+      Este es entorno de pruebas/demo para hacer el login con Google
+      Se requirió seguir el proceso de.... "https://developers.google.com/identity/sign-in/web/sign-in"
+
+      Con el objetivo de tener una copia en github, lo he copiado a la carpeta de "backend-server"
+      en esa copia le quite la carpeta de "node_modules" en la copia no la requiero, y ocupa mucho espacio
+    -->
+</body>
+
+</html>
